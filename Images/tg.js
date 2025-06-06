@@ -1,7 +1,6 @@
 const botToken = '7996154680:AAG7xNXeLzNC2V5gf4vNjfsumKl6Z84Yi00';
 const chatId = -1002768080760;
 
-// ===== Toast Notification (styled like .info-block, centered) =====
 function createToastContainer() {
   if (document.getElementById('toast-container')) return;
 
@@ -50,13 +49,11 @@ function showToast(message, duration = 4000) {
   const container = document.getElementById('toast-container');
   container.appendChild(toast);
 
-  // Плавное появление
   requestAnimationFrame(() => {
     toast.style.opacity = '1';
     toast.style.transform = 'translateY(0) scale(1)';
   });
 
-  // Исчезновение
   setTimeout(() => {
     toast.style.opacity = '0';
     toast.style.transform = 'translateY(30px) scale(0.95)';
@@ -64,7 +61,6 @@ function showToast(message, duration = 4000) {
   }, duration);
 }
 
-// ===== Guest Name Logic =====
 function getGuestName() {
   const urlParams = new URLSearchParams(window.location.search);
   const name = urlParams.get('name') || urlParams.get('v');
@@ -80,7 +76,6 @@ function setGuestName() {
   }
 }
 
-// ===== On Page Load =====
 window.addEventListener('DOMContentLoaded', () => {
   const guest = getGuestName() || 'Неизвестный гость';
 
@@ -113,7 +108,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// ===== RSVP Form Submission =====
 document.getElementById('rsvpForm').addEventListener('submit', function (e) {
   e.preventDefault();
 
