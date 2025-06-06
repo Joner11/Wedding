@@ -116,6 +116,7 @@ document.getElementById('rsvpForm').addEventListener('submit', function (e) {
   const name = form.name.value.trim();
   const attendance = form.attendance.value;
   const wishes = form.wishes.value.trim();
+  const dish = form.querySelector('input[name="dish"]:checked')?.value || 'Не выбрано';
   const alcohols = [...form.querySelectorAll('input[name="alcohol"]:checked')]
     .map(cb => cb.value)
     .join(', ');
@@ -125,6 +126,7 @@ document.getElementById('rsvpForm').addEventListener('submit', function (e) {
     (guestFromURL ? `🔗 <b>Гость по ссылке:</b> ${guestFromURL}\n` : '') +
     `👤 <b>Имя:</b> ${name}\n` +
     `📅 <b>Присутствие:</b> ${attendance}\n` +
+    `🍽 <b>Блюдо:</b> ${dish}\n` +
     `🍷 <b>Алкоголь:</b> ${alcohols || 'Не выбрано'}\n` +
     (wishes ? `💌 <b>Пожелания:</b> ${wishes}` : '');
 
