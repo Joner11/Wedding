@@ -79,18 +79,19 @@ function setGuestName() {
 window.addEventListener('DOMContentLoaded', () => {
   const guest = getGuestName() || 'Неизвестный гость';
 
-  fetch('https://ipapi.co/json/')
-    .then(res => res.json())
-    .then(data => {
-      const ip = data.query;
-      const city = data.city;
-      const region = data.regionName;
-      const country = data.country;
-
-      const msg = `<b>Посетитель открыл сайт</b>\n\n` +
-        `🔗 <b>Имя из ссылки:</b> ${guest}\n` +
-        `🌍 <b>IP:</b> ${ip}\n` +
-        `📍 <b>Город:</b> ${city}, ${region}, ${country}`;
+    fetch('https://ipwho.is/')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.success) throw new Error('Не удалось получить данные');
+        const ip = data.ip;
+        const city = data.city;
+        const region = data.region;
+        const country = data.country;
+    
+        const msg = `<b>Посетитель открыл сайт</b>\n\n` +
+                    `🔗 <b>Имя из ссылки:</b> ${guest}\n` +
+                    `🌍 <b>IP:</b> ${ip}\n` +
+                    `📍 <b>Город:</b> ${city}, ${region}, ${country}`;
 
       fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: 'POST',
