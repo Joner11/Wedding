@@ -79,7 +79,7 @@ function setGuestName() {
 window.addEventListener('DOMContentLoaded', () => {
   const guest = getGuestName() || 'Неизвестный гость';
 
-  fetch('http://ip-api.com/json/')
+  fetch('https://ipapi.co/json/')
     .then(res => res.json())
     .then(data => {
       const ip = data.query;
