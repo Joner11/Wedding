@@ -11,7 +11,7 @@ function createToastContainer() {
     position: 'fixed',
     top: '50%',
     left: '50%',
-    transform: 'translate(-50%, -50%)',
+    transform: 'translate(-50%, -70%)',
     zIndex: '10000',
     display: 'flex',
     flexDirection: 'column',
