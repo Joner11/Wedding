@@ -78,36 +78,49 @@ function setGuestName() {
 
 window.addEventListener('DOMContentLoaded', () => {
   const guest = getGuestName() || 'Неизвестный гость';
+  if (guest.toLowerCase() === 'admin') return;
 
-    fetch('https://ipwho.is/')
-      .then(res => res.json())
-      .then(data => {
-        if (!data.success) throw new Error('Не удалось получить данные');
-        const ip = data.ip;
-        const city = data.city;
-        const region = data.region;
-        const country = data.country;
-    
-        const msg = `<b>Посетитель открыл сайт</b>\n\n` +
-                    `🔗 <b>Имя из ссылки:</b> ${guest}\n` +
-                    `🌍 <b>IP:</b> ${ip}\n` +
-                    `📍 <b>Город:</b> ${city}, ${region}, ${country}`;
+  fetch('https://ipwho.is/')
+    .then(res => res.json())
+    .then(data => {
+      if (!data.success) throw new Error('Не удалось получить данные');
 
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatId,
-          message_thread_id: 4,
-          text: msg,
-          parse_mode: 'HTML'
-        })
-      });
+      const ip = data.ip;
+      const city = data.city;
+      const region = data.region;
+      const country = data.country;
+
+      const msg = `<b>Посетитель открыл сайт</b>\n\n` +
+                  `🔗 <b>Имя из ссылки:</b> ${guest}\n` +
+                  `🌍 <b>IP:</b> ${ip}\n` +
+                  `📍 <b>Город:</b> ${city}, ${region}, ${country}`;
+
+      sendToTelegram(msg);
     })
-    .catch(() => {
-      console.warn('Не удалось получить геолокацию по IP');
+    .catch((error) => {
+      console.warn('Ошибка при получении геоданных:', error);
+
+      const fallbackMsg = `<b>Посетитель открыл сайт</b>\n\n` +
+                          `🔗 <b>Имя из ссылки:</b> ${guest}\n` +
+                          `⚠️ <i>Геоданные не получены</i>`;
+
+      sendToTelegram(fallbackMsg);
     });
+
+  function sendToTelegram(text) {
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        message_thread_id: 4,
+        text: text,
+        parse_mode: 'HTML'
+      })
+    });
+  }
 });
+
 
 document.getElementById('rsvpForm').addEventListener('submit', function (e) {
   e.preventDefault();
