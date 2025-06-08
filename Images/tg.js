@@ -128,7 +128,14 @@ document.getElementById('rsvpForm').addEventListener('submit', function (e) {
   const name = form.name.value.trim();
   const attendance = form.attendance.value;
   const wishes = form.wishes.value.trim();
-  const dish = form.querySelector('input[name="dish"]:checked')?.value || 'Не выбрано';
+  let dish = 'Не выбрано';
+  if (attendance === 'Один') {
+    dish = form.querySelector('input[name="dish"]:checked')?.value || 'Не выбрано';
+  } else if (attendance === 'Парой') {
+    const d1 = form.querySelector('input[name="dish1"]:checked')?.value || 'не выбрано';
+    const d2 = form.querySelector('input[name="dish2"]:checked')?.value || 'не выбрано';
+    dish = `1: ${d1}, 2: ${d2}`;
+  }
   const alcohols = [...form.querySelectorAll('input[name="alcohol"]:checked')]
     .map(cb => cb.value)
     .join(', ');
