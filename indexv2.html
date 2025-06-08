@@ -966,7 +966,12 @@
         function createHeart() {
             const heart = document.createElement('div');
             heart.className = 'heart';
-            heart.innerHTML = '&#x2665;';
+            heart.innerHTML = `
+              <svg viewBox="0 0 32 29.6" width="1em" height="1em" fill="pink" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.6,0c-3.4,0-6.4,2.1-7.6,5.1C14.8,2.1,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,5.3,4.4,9.6,11.1,15.3c1.7,1.4,3.6,3,5.5,4.7
+                c1.9-1.7,3.8-3.3,5.5-4.7C27.6,18,32,13.7,32,8.4C32,3.8,28.2,0,23.6,0z"/>
+              </svg>`;            
+            //heart.innerHTML = '&#x2665;';
             //heart.innerHTML = '♥';
             heart.style.fontFamily = 'Arial, sans-serif';
             heart.style.left = Math.random() * 100 + '%';
