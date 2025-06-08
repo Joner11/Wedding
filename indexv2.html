@@ -966,7 +966,9 @@
         function createHeart() {
             const heart = document.createElement('div');
             heart.className = 'heart';
-            heart.innerHTML = '♥';
+            heart.innerHTML = '&#x2665;';
+            //heart.innerHTML = '♥';
+            heart.style.fontFamily = 'Arial, sans-serif';
             heart.style.left = Math.random() * 100 + '%';
             heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
             heart.style.opacity = Math.random() * 0.5 + 0.3;
