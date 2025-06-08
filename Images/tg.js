@@ -121,7 +121,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-
 document.getElementById('rsvpForm').addEventListener('submit', function (e) {
   e.preventDefault();
 
@@ -160,8 +159,19 @@ document.getElementById('rsvpForm').addEventListener('submit', function (e) {
     .then(response => {
       if (response.ok) {
         showToast('Спасибо! Анкета отправлена 💌');
-        form.reset();
+
+        Array.from(form.children).forEach(child => {
+          if (child !== submitButton) {
+            child.style.transition = 'opacity 0.5s ease';
+            child.style.opacity = '0';
+            setTimeout(() => child.style.display = 'none', 500);
+          }
+        });
+
         submitButton.textContent = 'Спасибо за обратную связь!';
+        submitButton.disabled = true;
+        submitButton.style.cursor = 'default';
+        submitButton.style.marginTop = '20px';
       } else {
         showToast('Ошибка при отправке. Попробуйте позже.');
         submitButton.disabled = false;
