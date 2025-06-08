@@ -839,22 +839,38 @@
             </label>
             <br><br>
 
-            <div class="choice-group">
-            <div>Что предпочитаете из основных блюд?</div>
-            <label class="choice-option"><input type="radio" name="dish" value="Рыба" required /> Рыба</label>
-            <label class="choice-option"><input type="radio" name="dish" value="Мясо" /> Мясо</label>
-            <label class="choice-option"><input type="radio" name="dish" value="Ем всё" /> Ем всё</label>
+            <div id="menuOptions" style="display: none;">
+            <!-- Один -->
+            <div class="choice-group" id="dishSingle">
+                <div>Что предпочитаете из основных блюд?</div>
+                <label class="choice-option"><input type="radio" name="dish" value="Рыба" /> Рыба</label>
+                <label class="choice-option"><input type="radio" name="dish" value="Мясо" /> Мясо</label>
+                <label class="choice-option"><input type="radio" name="dish" value="Ем всё" /> Ем всё</label>
             </div>
 
-            <div class="choice-group">
-            <div>Что предпочитаете из алкоголя? (можно выбрать несколько):</div>
-            <label class="choice-option"><input type="checkbox" name="alcohol" value="Вино" /> Вино</label>
-            <label class="choice-option"><input type="checkbox" name="alcohol" value="Шампанское" /> Шампанское</label>
-            <label class="choice-option"><input type="checkbox" name="alcohol" value="Виски" /> Виски</label>
-            <label class="choice-option"><input type="checkbox" name="alcohol" value="Водка" /> Водка</label>
-            <label class="choice-option"><input type="checkbox" name="alcohol" value="Без алкоголя" /> Без алкоголя</label>
+            <!-- Два -->
+            <div class="choice-group" id="dishPair" style="display: none;">
+                <div>Блюдо для первого гостя:</div>
+                <label class="choice-option"><input type="radio" name="dish1" value="Рыба" /> Рыба</label>
+                <label class="choice-option"><input type="radio" name="dish1" value="Мясо" /> Мясо</label>
+                <label class="choice-option"><input type="radio" name="dish1" value="Ем всё" /> Ем всё</label>
+
+                <div style="margin-top: 1em;">Блюдо для второго гостя:</div>
+                <label class="choice-option"><input type="radio" name="dish2" value="Рыба" /> Рыба</label>
+                <label class="choice-option"><input type="radio" name="dish2" value="Мясо" /> Мясо</label>
+                <label class="choice-option"><input type="radio" name="dish2" value="Ем всё" /> Ем всё</label>
             </div>
 
+            <div class="choice-group" id="alcoholGroup">
+                <div>Что предпочитаете из алкоголя? (можно выбрать несколько):</div>
+                <label class="choice-option"><input type="checkbox" name="alcohol" value="Вино" /> Вино</label>
+                <label class="choice-option"><input type="checkbox" name="alcohol" value="Шампанское" /> Шампанское</label>
+                <label class="choice-option"><input type="checkbox" name="alcohol" value="Виски" /> Виски</label>
+                <label class="choice-option"><input type="checkbox" name="alcohol" value="Водка" /> Водка</label>
+                <label class="choice-option"><input type="checkbox" name="alcohol" value="Без алкоголя" /> Без алкоголя</label>
+            </div>
+            </div>
+            
             <label>
             Пожелания молодожёнам:<br>
             <textarea name="wishes" class="form-input" rows="3" placeholder="Напишите, если хотите 😊"></textarea>
@@ -985,6 +1001,32 @@
             }, delay);
         }
 
+        document.querySelector('select[name="attendance"]').addEventListener('change', function () {
+        const value = this.value;
+        const dishSingle = document.getElementById('dishSingle');
+        const dishPair = document.getElementById('dishPair');
+        const menuOptions = document.getElementById('menuOptions');
+
+        dishSingle.style.display = 'none';
+        dishPair.style.display = 'none';
+        menuOptions.style.display = 'none';
+
+        document.querySelectorAll('input[name="dish"]').forEach(el => el.required = false);
+        document.querySelectorAll('input[name="dish1"]').forEach(el => el.required = false);
+        document.querySelectorAll('input[name="dish2"]').forEach(el => el.required = false);
+
+        if (value === 'Один') {
+            menuOptions.style.display = 'block';
+            dishSingle.style.display = 'block';
+            document.querySelectorAll('input[name="dish"]').forEach(el => el.required = true);
+        } else if (value === 'Парой') {
+            menuOptions.style.display = 'block';
+            dishPair.style.display = 'block';
+            document.querySelectorAll('input[name="dish1"]').forEach(el => el.required = true);
+            document.querySelectorAll('input[name="dish2"]').forEach(el => el.required = true);
+        }
+        });
+        
         window.addEventListener('load', () => {
             setTimeout(() => {
                 animateText(document.getElementById('title'), 0);
