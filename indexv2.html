@@ -593,6 +593,27 @@
             box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
         }
         
+        .choice-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+        }
+
+        .choice-option {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 300px;
+        margin: 4px 0;
+        text-align: left;
+        }
+
+        .choice-option input {
+        margin-right: 10px;
+        flex-shrink: 0;
+        }      
+        
         .color-palette {
         display: flex;
         justify-content: center;
@@ -818,18 +839,22 @@
             </label>
             <br><br>
 
+            <div class="choice-group">
             <div>Что предпочитаете из основных блюд?</div>
-            <label><input type="radio" name="dish" value="Рыба" required /> Рыба</label><br>
-            <label><input type="radio" name="dish" value="Мясо" /> Мясо</label><br>
-            <label><input type="radio" name="dish" value="Ем всё" /> Ем всё</label><br><br>  
+            <label class="choice-option"><input type="radio" name="dish" value="Рыба" required /> Рыба</label>
+            <label class="choice-option"><input type="radio" name="dish" value="Мясо" /> Мясо</label>
+            <label class="choice-option"><input type="radio" name="dish" value="Ем всё" /> Ем всё</label>
+            </div>
 
+            <div class="choice-group">
             <div>Что предпочитаете из алкоголя? (можно выбрать несколько):</div>
-            <label><input type="checkbox" name="alcohol" value="Вино" /> Вино</label><br>
-            <label><input type="checkbox" name="alcohol" value="Шампанское" /> Шампанское</label><br>
-            <label><input type="checkbox" name="alcohol" value="Виски" /> Виски</label><br>
-            <label><input type="checkbox" name="alcohol" value="Водка" /> Водка</label><br>
-            <label><input type="checkbox" name="alcohol" value="Без алкоголя" /> Без алкоголя</label>
-            <br><br>
+            <label class="choice-option"><input type="checkbox" name="alcohol" value="Вино" /> Вино</label>
+            <label class="choice-option"><input type="checkbox" name="alcohol" value="Шампанское" /> Шампанское</label>
+            <label class="choice-option"><input type="checkbox" name="alcohol" value="Виски" /> Виски</label>
+            <label class="choice-option"><input type="checkbox" name="alcohol" value="Водка" /> Водка</label>
+            <label class="choice-option"><input type="checkbox" name="alcohol" value="Без алкоголя" /> Без алкоголя</label>
+            </div>
+
             <label>
             Пожелания молодожёнам:<br>
             <textarea name="wishes" class="form-input" rows="3" placeholder="Напишите, если хотите 😊"></textarea>
